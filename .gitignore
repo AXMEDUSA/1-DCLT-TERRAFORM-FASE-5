@@ -1,0 +1,22 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+override.tf
+override.tf.json
+*_override.tf
+.terraformrc
+terraform.rc
+
+# Plans and local outputs
+tfplan
+tfplan-*
+*.tfplan
+
+# Azure CLI local files
+.azure/
+
+# OS / editor
+.DS_Store
+.vscode/
