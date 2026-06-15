@@ -1,12 +1,9 @@
-# ==================== PRIVATE DNS ZONE ====================
 resource "azurerm_private_dns_zone" "postgresql" {
   name                = "privatelink.postgres.database.azure.com"
   resource_group_name = azurerm_resource_group.rg.name
   tags                = local.common_tags
 }
 
-# Link da Private DNS Zone com a VNet da FIAP
-# MODIFICADO: Usar vnet-fiap-tech local
 resource "azurerm_private_dns_zone_virtual_network_link" "postgresql_vnet_link" {
   name                  = "postgresql-vnet-link"
   resource_group_name   = azurerm_resource_group.rg.name
@@ -23,18 +20,17 @@ resource "azurerm_private_dns_zone_virtual_network_link" "postgresql_aks_vnet_li
   tags                  = local.common_tags
 }
 
-resource "azurerm_private_endpoint" "postgres_endpoint_auth" {
-  name                = "pe-postgresql-auth"
+resource "azurerm_private_endpoint" "postgres_endpoint_ngo" {
+  name                = "pe-postgresql-ngo"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  subnet_id           = azurerm_subnet.private_1.id
   tags                = local.common_tags
-  # MODIFICADO: Usar subnet da vnet-fiap-tech
-  subnet_id = azurerm_subnet.private_1.id
 
   private_service_connection {
-    name                           = "psc-postgresql-auth"
+    name                           = "psc-postgresql-ngo"
     is_manual_connection           = false
-    private_connection_resource_id = azurerm_postgresql_flexible_server.auth.id
+    private_connection_resource_id = azurerm_postgresql_flexible_server.ngo.id
     subresource_names              = ["postgresqlServer"]
   }
 
@@ -44,18 +40,17 @@ resource "azurerm_private_endpoint" "postgres_endpoint_auth" {
   }
 }
 
-resource "azurerm_private_endpoint" "postgres_endpoint_flag" {
-  name                = "pe-postgresql-flag"
+resource "azurerm_private_endpoint" "postgres_endpoint_donation" {
+  name                = "pe-postgresql-donation"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  subnet_id           = azurerm_subnet.private_1.id
   tags                = local.common_tags
-  # MODIFICADO: Usar subnet da vnet-fiap-tech
-  subnet_id = azurerm_subnet.private_1.id
 
   private_service_connection {
-    name                           = "psc-postgresql-flag"
+    name                           = "psc-postgresql-donation"
     is_manual_connection           = false
-    private_connection_resource_id = azurerm_postgresql_flexible_server.flag.id
+    private_connection_resource_id = azurerm_postgresql_flexible_server.donation.id
     subresource_names              = ["postgresqlServer"]
   }
 
@@ -65,18 +60,17 @@ resource "azurerm_private_endpoint" "postgres_endpoint_flag" {
   }
 }
 
-resource "azurerm_private_endpoint" "postgres_endpoint_targeting" {
-  name                = "pe-postgresql-targeting"
+resource "azurerm_private_endpoint" "postgres_endpoint_volunteer" {
+  name                = "pe-postgresql-volunteer"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  subnet_id           = azurerm_subnet.private_1.id
   tags                = local.common_tags
-  # MODIFICADO: Usar subnet da vnet-fiap-tech
-  subnet_id = azurerm_subnet.private_1.id
 
   private_service_connection {
-    name                           = "psc-postgresql-targeting"
+    name                           = "psc-postgresql-volunteer"
     is_manual_connection           = false
-    private_connection_resource_id = azurerm_postgresql_flexible_server.targeting.id
+    private_connection_resource_id = azurerm_postgresql_flexible_server.volunteer.id
     subresource_names              = ["postgresqlServer"]
   }
 
