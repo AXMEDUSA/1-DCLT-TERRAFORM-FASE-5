@@ -16,13 +16,13 @@ variable "acr_name" {
 variable "aks_location" {
   type        = string
   description = "Região usada para criar o AKS e a VNet dedicada do cluster"
-  default     = "eastus2"
+  default     = "centralus"
 }
 
 variable "aks_vm_size" {
   type        = string
   description = "Tamanho da VM usada nos node pools do AKS"
-  default     = "Standard_D2_v4"
+  default     = "Standard_D2s_v3"
 }
 
 variable "aks_node_count" {
@@ -35,4 +35,10 @@ variable "db_admin_password" {
   type        = string
   description = "Senha do administrador PostgreSQL"
   sensitive   = true
+}
+
+variable "pg_location" {
+  type        = string
+  description = "Região para os servidores PostgreSQL Flexible (eastus2 restringe esta subscription)"
+  default     = "centralus"
 }

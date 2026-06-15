@@ -46,7 +46,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 }
 
 resource "azurerm_log_analytics_workspace" "aks" {
-  name                = "law-solidarytech-fase5"
+  name                = "law-solidarytech-f5-cus"
   location            = var.aks_location
   resource_group_name = azurerm_resource_group.rg.name
   sku                 = "PerGB2018"

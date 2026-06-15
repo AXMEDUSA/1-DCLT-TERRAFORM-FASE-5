@@ -22,9 +22,9 @@ resource "azurerm_private_dns_zone_virtual_network_link" "postgresql_aks_vnet_li
 
 resource "azurerm_private_endpoint" "postgres_endpoint_ngo" {
   name                = "pe-postgresql-ngo"
-  location            = azurerm_resource_group.rg.location
+  location            = var.aks_location
   resource_group_name = azurerm_resource_group.rg.name
-  subnet_id           = azurerm_subnet.private_1.id
+  subnet_id           = azurerm_subnet.aks_private.id
   tags                = local.common_tags
 
   private_service_connection {
@@ -42,9 +42,9 @@ resource "azurerm_private_endpoint" "postgres_endpoint_ngo" {
 
 resource "azurerm_private_endpoint" "postgres_endpoint_donation" {
   name                = "pe-postgresql-donation"
-  location            = azurerm_resource_group.rg.location
+  location            = var.aks_location
   resource_group_name = azurerm_resource_group.rg.name
-  subnet_id           = azurerm_subnet.private_1.id
+  subnet_id           = azurerm_subnet.aks_private.id
   tags                = local.common_tags
 
   private_service_connection {
@@ -62,9 +62,9 @@ resource "azurerm_private_endpoint" "postgres_endpoint_donation" {
 
 resource "azurerm_private_endpoint" "postgres_endpoint_volunteer" {
   name                = "pe-postgresql-volunteer"
-  location            = azurerm_resource_group.rg.location
+  location            = var.aks_location
   resource_group_name = azurerm_resource_group.rg.name
-  subnet_id           = azurerm_subnet.private_1.id
+  subnet_id           = azurerm_subnet.aks_private.id
   tags                = local.common_tags
 
   private_service_connection {

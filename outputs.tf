@@ -78,6 +78,7 @@ output "postgres_volunteer_fqdn" {
   value = azurerm_postgresql_flexible_server.volunteer.fqdn
 }
 
+
 output "private_endpoint_ids" {
   value = [
     azurerm_private_endpoint.postgres_endpoint_ngo.id,
