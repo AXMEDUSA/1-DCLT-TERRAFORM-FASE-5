@@ -5,24 +5,30 @@ variable "location" {
 
 variable "resource_group_name" {
   type    = string
-  default = "rg-fiap-tech-challange-fase-5"
+  default = "rg-solidarytech-fase5"
 }
 
 variable "acr_name" {
   type    = string
-  default = "toggleacrfase5" # precisa ser único globalmente
+  default = "acrsolidarytechf5"
 }
 
 variable "aks_location" {
   type        = string
   description = "Região usada para criar o AKS e a VNet dedicada do cluster"
-  default     = "centralus"
+  default     = "eastus2"
 }
 
 variable "aks_vm_size" {
   type        = string
   description = "Tamanho da VM usada nos node pools do AKS"
   default     = "Standard_D2_v4"
+}
+
+variable "aks_node_count" {
+  type        = number
+  description = "Número de nós no node pool padrão"
+  default     = 2
 }
 
 variable "db_admin_password" {
