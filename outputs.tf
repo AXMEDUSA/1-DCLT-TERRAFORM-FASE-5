@@ -6,20 +6,12 @@ output "vnet_id" {
   value = azurerm_virtual_network.vnet.id
 }
 
-output "snet-public-1" {
+output "subnet_public_1" {
   value = azurerm_subnet.public_1.id
 }
 
-output "snet-private-1" {
+output "subnet_private_1" {
   value = azurerm_subnet.private_1.id
-}
-
-output "redis_hostname" {
-  value = azurerm_managed_redis.redis.hostname
-}
-
-output "redis_ssl_port" {
-  value = azurerm_managed_redis.redis.default_database[0].port
 }
 
 output "aks_name" {
@@ -38,6 +30,14 @@ output "acr_login_server" {
   value = azurerm_container_registry.acr.login_server
 }
 
+output "redis_hostname" {
+  value = azurerm_managed_redis.redis.hostname
+}
+
+output "redis_port" {
+  value = azurerm_managed_redis.redis.default_database[0].port
+}
+
 output "tfstate_storage_account" {
   value = azurerm_storage_account.tfstate.name
 }
@@ -47,37 +47,45 @@ output "tfstate_container" {
 }
 
 output "queue_storage_account" {
-  value = azurerm_storage_account.sa-solidarytech.name
+  value = azurerm_storage_account.sa_solidarytech.name
 }
 
-output "queue_name" {
-  value = azurerm_storage_queue.queue.name
+output "queue_donations" {
+  value = azurerm_storage_queue.donations.name
+}
+
+output "queue_volunteers" {
+  value = azurerm_storage_queue.volunteers.name
 }
 
 output "cosmos_account_name" {
   value = azurerm_cosmosdb_account.cosmos.name
 }
 
-output "cosmos_table_name" {
-  value = azurerm_cosmosdb_table.table.name
+output "cosmos_table_ongs" {
+  value = azurerm_cosmosdb_table.ongs.name
 }
 
-output "postgres_auth_name" {
-  value = azurerm_postgresql_flexible_server.auth.name
+output "postgres_ngo_fqdn" {
+  value = azurerm_postgresql_flexible_server.ngo.fqdn
 }
 
-output "postgres_flag_name" {
-  value = azurerm_postgresql_flexible_server.flag.name
+output "postgres_donation_fqdn" {
+  value = azurerm_postgresql_flexible_server.donation.fqdn
 }
 
-output "postgres_targeting_name" {
-  value = azurerm_postgresql_flexible_server.targeting.name
+output "postgres_volunteer_fqdn" {
+  value = azurerm_postgresql_flexible_server.volunteer.fqdn
 }
 
 output "private_endpoint_ids" {
   value = [
-    azurerm_private_endpoint.postgres_endpoint_auth.id,
-    azurerm_private_endpoint.postgres_endpoint_flag.id,
-    azurerm_private_endpoint.postgres_endpoint_targeting.id,
+    azurerm_private_endpoint.postgres_endpoint_ngo.id,
+    azurerm_private_endpoint.postgres_endpoint_donation.id,
+    azurerm_private_endpoint.postgres_endpoint_volunteer.id,
   ]
+}
+
+output "log_analytics_workspace_id" {
+  value = azurerm_log_analytics_workspace.aks.id
 }
