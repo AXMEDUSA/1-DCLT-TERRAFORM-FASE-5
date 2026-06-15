@@ -34,22 +34,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     dns_service_ip    = "10.1.0.10"
   }
 
-  oms_agent {
-    log_analytics_workspace_id = azurerm_log_analytics_workspace.aks.id
-  }
-
   tags = local.common_tags
 
   depends_on = [
     azurerm_subnet.aks_private
   ]
-}
-
-resource "azurerm_log_analytics_workspace" "aks" {
-  name                = "law-solidarytech-f5-cus"
-  location            = var.aks_location
-  resource_group_name = azurerm_resource_group.rg.name
-  sku                 = "PerGB2018"
-  retention_in_days   = 30
-  tags                = local.common_tags
 }
