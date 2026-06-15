@@ -1,15 +1,18 @@
-# Storage Account (necessária para Queue)
-resource "azurerm_storage_account" "sa-solidarytech" {
+resource "azurerm_storage_account" "sa_solidarytech" {
   name                     = "sasolidarytechf5"
   resource_group_name      = azurerm_resource_group.rg.name
-  location                 = "eastus2"
+  location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  tags                     = local.common_tags
+  tags                     = merge(local.common_tags, { Service = "donation-service" })
 }
 
-# Fila de mensagens (tipo SQS)
-resource "azurerm_storage_queue" "queue" {
-  name               = "fila-solidarytech"
-  storage_account_id = azurerm_storage_account.sa-solidarytech.id
+resource "azurerm_storage_queue" "donations" {
+  name               = "queue-donations"
+  storage_account_id = azurerm_storage_account.sa_solidarytech.id
+}
+
+resource "azurerm_storage_queue" "volunteers" {
+  name               = "queue-volunteers"
+  storage_account_id = azurerm_storage_account.sa_solidarytech.id
 }
